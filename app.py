@@ -676,7 +676,7 @@ def main():
         preview_cols = st.columns(min(len(uploaded), 4))
         for i, f in enumerate(uploaded):
             with preview_cols[i % 4]:
-                st.image(f, caption=f.name, use_column_width=True)
+                st.image(f, caption=f.name, use_container_width=True)
 
 
 if __name__ == "__main__":
