@@ -589,12 +589,12 @@ def main():
             col1, col2 = st.columns(2)
             with col1:
                 st.image(baseline_vis, caption="🔵 Baseline YOLOv8s-seg",
-                         use_column_width=True)
+                         width="stretch")
                 n_base = len(baseline_result["boxes"])
                 st.metric("Total deteksi", f"{n_base} cacat")
             with col2:
                 st.image(sahi_vis, caption="🟢 SAHI + YOLOv8s-seg",
-                         use_column_width=True)
+                         width="stretch")
                 n_sahi = len(sahi_result["boxes"])
                 st.metric("Total deteksi", f"{n_sahi} cacat",
                           delta=f"{n_sahi - n_base:+d} vs Baseline")
@@ -676,7 +676,7 @@ def main():
         preview_cols = st.columns(min(len(uploaded), 4))
         for i, f in enumerate(uploaded):
             with preview_cols[i % 4]:
-                st.image(f, caption=f.name, use_column_width=True)
+                st.image(f, caption=f.name, width="stretch")
 
 
 if __name__ == "__main__":
