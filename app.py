@@ -1,7 +1,7 @@
 """
-app2.py — Perbandingan Inferensi: SAHI+YOLOv8s-seg vs Baseline YOLOv8s-seg
+app.py — Perbandingan Inferensi: SAHI+YOLOv8s-seg vs Baseline YOLOv8s-seg
 Sistem Grading: SCAA Green Coffee Classification 5-Level (FAO Annex 7)
-Jalankan: streamlit run app2.py
+Jalankan: streamlit run app.py
 """
 
 import os
