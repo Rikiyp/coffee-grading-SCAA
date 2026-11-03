@@ -11,11 +11,17 @@ import tempfile
 from collections import Counter
 from pathlib import Path
 
+# ============================================================
+# IMPORT CHECK WITH DETAILED ERROR REPORTING
+# ============================================================
+IMPORT_ERRORS = []
+
 try:
     import cv2
     CV2_AVAILABLE = True
-except ImportError:
+except Exception as e:
     CV2_AVAILABLE = False
+    IMPORT_ERRORS.append(f"cv2 import error: {e}")
 
 import numpy as np
 import streamlit as st
@@ -24,14 +30,16 @@ try:
     import torch
     import torchvision
     TORCH_AVAILABLE = True
-except ImportError:
+except Exception as e:
     TORCH_AVAILABLE = False
+    IMPORT_ERRORS.append(f"torch/torchvision import error: {e}")
 
 try:
     from ultralytics import YOLO
     YOLO_AVAILABLE = True
-except ImportError:
+except Exception as e:
     YOLO_AVAILABLE = False
+    IMPORT_ERRORS.append(f"ultralytics import error: {e}")
 
 # ============================================================
 # KONFIGURASI HALAMAN
@@ -477,18 +485,12 @@ def main():
     """, unsafe_allow_html=True)
 
     # ── Cek dependency ───────────────────────────────────────
-    missing = []
-    if not CV2_AVAILABLE:
-        missing.append("`opencv-python-headless`")
-    if not TORCH_AVAILABLE:
-        missing.append("`torch` dan `torchvision`")
-    if not YOLO_AVAILABLE:
-        missing.append("`ultralytics`")
-    if missing:
+    if IMPORT_ERRORS:
         st.error(
-            "❌ Library berikut belum terinstall: " + ", ".join(missing) + "\n\n"
-            "Pastikan `requirements.txt` berisi:\n"
-            "```\nopencv-python-headless\nultralytics\ntorch\ntorchvision\n```"
+            "❌ Error saat import library:\n\n" + 
+            "\n".join([f"- {err}" for err in IMPORT_ERRORS]) +
+            "\n\nDetail Environment:\n"
+            f"- Python Version: {os.sys.version}\n"
         )
         st.stop()
 
